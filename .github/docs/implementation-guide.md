@@ -9,7 +9,7 @@
 
 ### 1.1. Create repository
 
-Log in to your GitHub account, navigate to the [databricks-kubernetes-real-time-mlflow-model-deployment-poc](https://github.com/nfmoore/databricks-kubernetes-real-time-mlflow-model-deployment-poc) repository and click `use this template` to create a new repository from this template. Rename the template and leave it public. Use [these](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) instructions for more details about creating a repository from a template.
+Log in to your GitHub account, navigate to the [employee-retention-databricks-kubernetes-poc](https://github.com/Azure/employee-retention-databricks-kubernetes-poc) repository and click `use this template` to create a new repository from this template. Rename the template and leave it public. Use [these](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) instructions for more details about creating a repository from a template.
 
 ### 1.2. Deploy resources
 
@@ -17,7 +17,7 @@ The Azure resources required to implement this proof-of-concept include an [Azur
 
 To deploy the resources for this proof-of-concept in your Azure environment click the `Deploy to Azure` button below. The resources can be deployed into an existing Resource Group or you can choose to create a new Resource Group.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnfmoore%2Fdatabricks-kubernetes-mlops-poc%2Fmain%2Finfrastructure%2Fmain.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Femployee-retention-databricks-kubernetes-poc%2Fmain%2Finfrastructure%2Fmain.json)
 
 ![1-1](.github/../images/implementation/1-1.png)
 
