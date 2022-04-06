@@ -91,7 +91,7 @@ After creating these secrets for the production environment, you can enable `Req
 
 ### 1.5. Configure GitHub secrets
 
-Next, you will configure GitHub Action secrets. These are encrypted environment variables used within GitHub Actions Workflows. Click the `Settings` tab in the menu bar of your GitHub repository and on the new page then select `Secrets` from the sidebar. Click the `New Repository Secret` button to create a new secret and then the `Add Secret` button to create the secret.
+Next, you will configure GitHub Action secrets. These are encrypted environment variables used within GitHub Actions Workflows. Click the `Settings` tab in the menu bar of your GitHub repository and on the new page expand `Secrets` from the sidebar and select `Actions`. Click the `New Repository Secret` button to create a new secret and then the `Add Secret` button to create the secret.
 
 You need to create the following secrets:
 
