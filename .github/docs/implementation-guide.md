@@ -102,7 +102,7 @@ You need to create the following secrets:
 | DATABRICKS_TOKEN | This is the value of the `Access Token` you created in `1.3`. The value should look something like `dapi55555555555555555555555555555555-2`. |
 | CONTAINER_REGISTRY_NAME | The name of the ACR service deployed in template two. |
 | CONTAINER_REGISTRY_PASSWORD | This can be found in the access keys section of the ACR service page. The Admin Account section of [this]( https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli#admin-account) document contains more information. |
-| CONTAINER_REGISTRY_IMAGE_PULL_SECRET | A image pull secret you create. |
+| CONTAINER_REGISTRY_IMAGE_PULL_SECRET | A image pull secret you create. The secret needs to consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character. |
 
 ![1-10](.github/../images/implementation/1-10.png)
 
