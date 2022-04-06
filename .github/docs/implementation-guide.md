@@ -85,7 +85,7 @@ To set up these environments, from your GitHub repository you created in `1.1` c
 
 Like above, create a second environment called `Production` with the same secrets from above. Make sure you replace the secret values to correspond to the AKS cluster and corresponding resource group from the second deployment of template two.
 
-After creating these secrets for the production environment, you can enable `Required Viewers` before deploying to this environment. This will allow you to specify people or teams that may approve workflow runs when they access this environment. To enable `Required Viewers`, under the `Environment Protection Rules` section, click the checkbox next to `Required Viewers` and search for your GitHub username and select it from the dropdown and click the `Save Protection Rules` button.
+After creating these secrets for the production environment, you can enable `Required reviewers` before deploying to this environment. This will allow you to specify people or teams that may approve workflow runs when they access this environment. To enable `Required Viewers`, under the `Environment Protection Rules` section, click the checkbox next to `Required reviewers` and search for your GitHub username and select it from the dropdown and click the `Save Protection Rules` button.
 
 ![1-9](.github/../images/implementation/1-9.png)
 
