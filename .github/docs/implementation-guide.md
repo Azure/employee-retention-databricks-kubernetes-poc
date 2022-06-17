@@ -25,12 +25,6 @@ To deploy the resources for this proof-of-concept in your Azure environment clic
 
 After the resources have been successfully deployed some services need to be configured before you can train, register, deploy and monitor the machine learning models.
 
-#### Log Analytics Workspace
-
-For the Log Analytics workspace, Azure Monitor for Containers needs to be enabled. To enable this, click on an AKS cluster deployed as part of 1.2 above, click on the Logs tab in the monitoring section, then select your Log Analytics workspace and click enable. This process is shown in the image below. Ensure to repeat this process for the second AKS cluster in your resource group.
-
-![1-2](.github/../images/implementation/1-2.png)
-
 #### Azure Databricks
 
 For Azure Databricks you need to enable the [Files in Repo](https://docs.microsoft.com/en-us/azure/databricks/repos#enable-support-for-arbitrary-files-in-databricks-repos) feature (which is not enabled by default at the time of developing this proof-of-concept), generate a new [Databricks Access Token](https://docs.microsoft.com/en-au/azure/databricks/dev-tools/api/latest/authentication), and create a [cluster with custom libraries](https://docs.microsoft.com/en-au/azure/databricks/libraries/cluster-libraries).
