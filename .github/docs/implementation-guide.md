@@ -85,13 +85,13 @@ To set up these environments, from your GitHub repository you created in `1.1` c
 
 Like above, create a second environment called `Production` with the same secrets from above. Make sure you replace the secret values to correspond to the AKS cluster and corresponding resource group from the second deployment of template two.
 
-After creating these secrets for the production environment, you can enable `Required Viewers` before deploying to this environment. This will allow you to specify people or teams that may approve workflow runs when they access this environment. To enable `Required Viewers`, under the `Environment Protection Rules` section, click the checkbox next to `Required Viewers` and search for your GitHub username and select it from the dropdown and click the `Save Protection Rules` button.
+After creating these secrets for the production environment, you can enable `Required reviewers` before deploying to this environment. This will allow you to specify people or teams that may approve workflow runs when they access this environment. To enable `Required Viewers`, under the `Environment Protection Rules` section, click the checkbox next to `Required reviewers` and search for your GitHub username and select it from the dropdown and click the `Save Protection Rules` button.
 
 ![1-9](.github/../images/implementation/1-9.png)
 
 ### 1.5. Configure GitHub secrets
 
-Next, you will configure GitHub Action secrets. These are encrypted environment variables used within GitHub Actions Workflows. Click the `Settings` tab in the menu bar of your GitHub repository and on the new page then select `Secrets` from the sidebar. Click the `New Repository Secret` button to create a new secret and then the `Add Secret` button to create the secret.
+Next, you will configure GitHub Action secrets. These are encrypted environment variables used within GitHub Actions Workflows. Click the `Settings` tab in the menu bar of your GitHub repository and on the new page expand `Secrets` from the sidebar and select `Actions`. Click the `New Repository Secret` button to create a new secret and then the `Add Secret` button to create the secret.
 
 You need to create the following secrets:
 
@@ -102,7 +102,7 @@ You need to create the following secrets:
 | DATABRICKS_TOKEN | This is the value of the `Access Token` you created in `1.3`. The value should look something like `dapi55555555555555555555555555555555-2`. |
 | CONTAINER_REGISTRY_NAME | The name of the ACR service deployed in template two. |
 | CONTAINER_REGISTRY_PASSWORD | This can be found in the access keys section of the ACR service page. The Admin Account section of [this]( https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication?tabs=azure-cli#admin-account) document contains more information. |
-| CONTAINER_REGISTRY_IMAGE_PULL_SECRET | A image pull secret you create. |
+| CONTAINER_REGISTRY_IMAGE_PULL_SECRET | A image pull secret you create. The secret needs to consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character. |
 
 ![1-10](.github/../images/implementation/1-10.png)
 
