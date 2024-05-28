@@ -92,12 +92,6 @@ resource r_dataLakeStorageAccount 'Microsoft.Storage/storageAccounts@2021-02-01'
     networkAcls: {
       defaultAction: 'Allow'
       bypass: 'AzureServices'
-      resourceAccessRules: [
-        {
-          tenantId: subscription().tenantId
-          resourceId: r_databricksWorkspace.id
-        }
-      ]
     }
   }
   kind: 'StorageV2'
@@ -113,9 +107,11 @@ var privateContainerNames = [
   dataLakeSandboxZoneName
 ]
 
-resource r_dataLakePrivateContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-02-01' = [for containerName in privateContainerNames: if (deployDataLakeAccount == true) {
-  name: '${r_dataLakeStorageAccount.name}/default/${containerName}'
-}]
+resource r_dataLakePrivateContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2021-02-01' = [
+  for containerName in privateContainerNames: if (deployDataLakeAccount == true) {
+    name: '${r_dataLakeStorageAccount.name}/default/${containerName}'
+  }
+]
 
 //********************************************************
 // Outputs

@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.13.1.58284",
-      "templateHash": "18065729359224622542"
+      "version": "0.26.54.24096",
+      "templateHash": "12896785400664354962"
     }
   },
   "parameters": {
@@ -66,7 +66,7 @@
   "resources": [
     {
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2020-10-01",
+      "apiVersion": "2022-09-01",
       "name": "m_databricks",
       "properties": {
         "expressionEvaluationOptions": {
@@ -87,8 +87,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.13.1.58284",
-              "templateHash": "6605471823497372116"
+              "version": "0.26.54.24096",
+              "templateHash": "15580177013731777853"
             }
           },
           "parameters": {
@@ -235,29 +235,20 @@
                 "allowSharedKeyAccess": "[parameters('allowSharedKeyAccess')]",
                 "networkAcls": {
                   "defaultAction": "Allow",
-                  "bypass": "AzureServices",
-                  "resourceAccessRules": [
-                    {
-                      "tenantId": "[subscription().tenantId]",
-                      "resourceId": "[resourceId('Microsoft.Databricks/workspaces', parameters('databricksWorkspaceName'))]"
-                    }
-                  ]
+                  "bypass": "AzureServices"
                 }
               },
               "kind": "StorageV2",
               "sku": {
                 "name": "[parameters('dataLakeAccountSKU')]"
-              },
-              "dependsOn": [
-                "[resourceId('Microsoft.Databricks/workspaces', parameters('databricksWorkspaceName'))]"
-              ]
+              }
             },
             {
-              "condition": "[equals(parameters('deployDataLakeAccount'), true())]",
               "copy": {
                 "name": "r_dataLakePrivateContainer",
                 "count": "[length(variables('privateContainerNames'))]"
               },
+              "condition": "[equals(parameters('deployDataLakeAccount'), true())]",
               "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
               "apiVersion": "2021-02-01",
               "name": "[format('{0}/default/{1}', parameters('dataLakeAccountName'), variables('privateContainerNames')[copyIndex()])]",
@@ -271,7 +262,7 @@
     },
     {
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2020-10-01",
+      "apiVersion": "2022-09-01",
       "name": "m_microservices_01",
       "properties": {
         "expressionEvaluationOptions": {
@@ -301,8 +292,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.13.1.58284",
-              "templateHash": "4754783924999976762"
+              "version": "0.26.54.24096",
+              "templateHash": "9344253486325834355"
             }
           },
           "parameters": {
@@ -523,7 +514,7 @@
             },
             {
               "type": "Microsoft.ContainerService/managedClusters",
-              "apiVersion": "2022-04-02-preview",
+              "apiVersion": "2022-06-01",
               "name": "[parameters('kubernetesServiceClusterName')]",
               "location": "[parameters('location')]",
               "sku": {
@@ -535,7 +526,6 @@
                 "type": "SystemAssigned"
               },
               "properties": {
-                "kubernetesVersion": "1.23.12",
                 "dnsPrefix": "[parameters('dnsPrefix')]",
                 "agentPoolProfiles": [
                   {
@@ -790,7 +780,7 @@
               "name": "[guid(parameters('kubernetesServiceClusterName'), parameters('containerRegistryName'), 'contributor')]",
               "properties": {
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('azureRbacContributorRoleId'))]",
-                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-04-02-preview', 'full').identity.principalId]",
+                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-06-01', 'full').identity.principalId]",
                 "principalType": "ServicePrincipal"
               },
               "dependsOn": [
@@ -804,7 +794,7 @@
               "name": "[guid(parameters('kubernetesServiceClusterName'), parameters('applicationGatewayName'), 'contributor')]",
               "properties": {
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('azureRbacContributorRoleId'))]",
-                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-04-02-preview', 'full').identity.principalId]",
+                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-06-01', 'full').identity.principalId]",
                 "principalType": "ServicePrincipal"
               },
               "dependsOn": [
@@ -817,7 +807,7 @@
               "name": "[guid(parameters('kubernetesServiceClusterName'), 'agic', 'contributor')]",
               "properties": {
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('azureRbacContributorRoleId'))]",
-                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-04-02-preview').addonProfiles.ingressApplicationGateway.identity.objectId]",
+                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-06-01').addonProfiles.ingressApplicationGateway.identity.objectId]",
                 "principalType": "ServicePrincipal"
               },
               "dependsOn": [
@@ -828,7 +818,7 @@
           "outputs": {
             "controlPlaneFQDN": {
               "type": "string",
-              "value": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-04-02-preview').fqdn]"
+              "value": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-06-01').fqdn]"
             },
             "containerRegistryName": {
               "type": "string",
@@ -844,7 +834,7 @@
     },
     {
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2020-10-01",
+      "apiVersion": "2022-09-01",
       "name": "m_microservices_02",
       "properties": {
         "expressionEvaluationOptions": {
@@ -874,10 +864,10 @@
             "value": true
           },
           "containerRegistryName": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'm_microservices_01'), '2020-10-01').outputs.containerRegistryName.value]"
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'm_microservices_01'), '2022-09-01').outputs.containerRegistryName.value]"
           },
           "logAnalyticsWorkspaceName": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'm_microservices_01'), '2020-10-01').outputs.logAnalyticsWorkspaceName.value]"
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'm_microservices_01'), '2022-09-01').outputs.logAnalyticsWorkspaceName.value]"
           }
         },
         "template": {
@@ -886,8 +876,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.13.1.58284",
-              "templateHash": "4754783924999976762"
+              "version": "0.26.54.24096",
+              "templateHash": "9344253486325834355"
             }
           },
           "parameters": {
@@ -1108,7 +1098,7 @@
             },
             {
               "type": "Microsoft.ContainerService/managedClusters",
-              "apiVersion": "2022-04-02-preview",
+              "apiVersion": "2022-06-01",
               "name": "[parameters('kubernetesServiceClusterName')]",
               "location": "[parameters('location')]",
               "sku": {
@@ -1120,7 +1110,6 @@
                 "type": "SystemAssigned"
               },
               "properties": {
-                "kubernetesVersion": "1.23.12",
                 "dnsPrefix": "[parameters('dnsPrefix')]",
                 "agentPoolProfiles": [
                   {
@@ -1375,7 +1364,7 @@
               "name": "[guid(parameters('kubernetesServiceClusterName'), parameters('containerRegistryName'), 'contributor')]",
               "properties": {
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('azureRbacContributorRoleId'))]",
-                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-04-02-preview', 'full').identity.principalId]",
+                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-06-01', 'full').identity.principalId]",
                 "principalType": "ServicePrincipal"
               },
               "dependsOn": [
@@ -1389,7 +1378,7 @@
               "name": "[guid(parameters('kubernetesServiceClusterName'), parameters('applicationGatewayName'), 'contributor')]",
               "properties": {
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('azureRbacContributorRoleId'))]",
-                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-04-02-preview', 'full').identity.principalId]",
+                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-06-01', 'full').identity.principalId]",
                 "principalType": "ServicePrincipal"
               },
               "dependsOn": [
@@ -1402,7 +1391,7 @@
               "name": "[guid(parameters('kubernetesServiceClusterName'), 'agic', 'contributor')]",
               "properties": {
                 "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions', variables('azureRbacContributorRoleId'))]",
-                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-04-02-preview').addonProfiles.ingressApplicationGateway.identity.objectId]",
+                "principalId": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-06-01').addonProfiles.ingressApplicationGateway.identity.objectId]",
                 "principalType": "ServicePrincipal"
               },
               "dependsOn": [
@@ -1413,7 +1402,7 @@
           "outputs": {
             "controlPlaneFQDN": {
               "type": "string",
-              "value": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-04-02-preview').fqdn]"
+              "value": "[reference(resourceId('Microsoft.ContainerService/managedClusters', parameters('kubernetesServiceClusterName')), '2022-06-01').fqdn]"
             },
             "containerRegistryName": {
               "type": "string",

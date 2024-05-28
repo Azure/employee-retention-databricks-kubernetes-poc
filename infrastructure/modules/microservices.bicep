@@ -152,7 +152,7 @@ resource r_subNetAks 'Microsoft.Network/virtualNetworks/subnets@2020-11-01' = {
     privateLinkServiceNetworkPolicies: 'Enabled'
   }
 
-  dependsOn: [ r_subNetAppGw ]
+  dependsOn: [r_subNetAppGw]
 }
 
 resource r_subNetAppGw 'Microsoft.Network/virtualNetworks/subnets@2020-11-01' = {
@@ -166,7 +166,7 @@ resource r_subNetAppGw 'Microsoft.Network/virtualNetworks/subnets@2020-11-01' = 
 }
 
 //Kubernetes Service
-resource r_aks 'Microsoft.ContainerService/managedClusters@2022-04-02-preview' = {
+resource r_aks 'Microsoft.ContainerService/managedClusters@2022-06-01' = {
   name: kubernetesServiceClusterName
   location: location
   sku: {
@@ -178,7 +178,6 @@ resource r_aks 'Microsoft.ContainerService/managedClusters@2022-04-02-preview' =
     type: 'SystemAssigned'
   }
   properties: {
-    kubernetesVersion: '1.23.12'
     dnsPrefix: dnsPrefix
     agentPoolProfiles: [
       {
@@ -228,7 +227,9 @@ resource r_aks 'Microsoft.ContainerService/managedClusters@2022-04-02-preview' =
       omsAgent: {
         enabled: true
         config: {
-          logAnalyticsWorkspaceResourceID: useExistingLogAnalyticsWorkspace ? r_logAnalyticsWorkspace.id : r_newLogAnalyticsWorkspace.id
+          logAnalyticsWorkspaceResourceID: useExistingLogAnalyticsWorkspace
+            ? r_logAnalyticsWorkspace.id
+            : r_newLogAnalyticsWorkspace.id
         }
       }
     }
